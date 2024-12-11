@@ -59,21 +59,7 @@ src/
 ├── index.css
 └── README.md
 
-backend/
-├── controllers/                  # API route handlers
-│   ├── authController.js         # User authentication
-│   ├── serviceController.js      # Service-related actions
-│   └── reviewController.js       # Review-related actions
-├── models/                       # Database models
-│   ├── User.js                   # User model
-│   ├── Service.js                # Service model
-│   └── Review.js                 # Review model
-├── routes/                       # API routes
-│   ├── authRoutes.js             # Authentication routes
-│   ├── serviceRoutes.js          # Service routes
-│   └── reviewRoutes.js           # Review routes
-├── server.js                     # Entry point for the backend server
-└── README.md                     # Backend information
+
 ```
 
 ## Backend Setup (SQLite)
@@ -109,34 +95,6 @@ backend/
         password TEXT NOT NULL,
         business_name TEXT NOT NULL
     );
-
-    CREATE TABLE services (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        description TEXT NOT NULL,
-        price DECIMAL(10, 2) NOT NULL
-    );
-
-    CREATE TABLE reviews (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        service_id INTEGER,
-        user_id INTEGER,
-        rating INTEGER,
-        comment TEXT,
-        FOREIGN KEY (service_id) REFERENCES services(id),
-        FOREIGN KEY (user_id) REFERENCES users(id)
-    );
-    ```
-
-5. Create a `.env` file for sensitive information (like JWT secrets) in the backend directory:
-    ```env
-    JWT_SECRET=<your_jwt_secret_key>
-    ```
-
-6. Start the backend server:
-    ```bash
-    node server.js
-    ```
 
 The backend will now be running at `http://localhost:5000`.
 
@@ -196,37 +154,6 @@ The backend will now be running at `http://localhost:5000`.
     }
     ```
 
-### 3. Service Listing
-
-- **Endpoint**: `GET /services`
-- **Response**: 
-    ```json
-    [
-        {
-            "id": 1,
-            "name": "Fridge Repair",
-            "description": "Fixing broken fridges.",
-            "price": 50.00
-        },
-        ...
-    ]
-    ```
-
-### 4. Reviews
-
-- **Endpoint**: `GET /reviews/:serviceId`
-- **Response**: 
-    ```json
-    [
-        {
-            "user_id": 1,
-            "service_id": 1,
-            "rating": 5,
-            "comment": "Great service!"
-        },
-        ...
-    ]
-    ```
 
 ## Future Enhancements
 
